@@ -8,12 +8,9 @@ set -o pipefail
 function usage() {
     cat <<USAGE
 
-    Usage: $0 [-u --tre_url]  [-c --current] [-i --insecure]
+    Usage: $0 [--propertyName propertyValue ...]
 
     Options:
-        -u, --tre_url                 URL for the TRE (required for automatic registration)
-        -a, --access-token            Azure access token to automatically post to the API (required for automatic registration)
-        -i, --insecure                Bypass SSL certificate checks
 
         Additional bundle properties to be passed to the bundle on install can be passed in the format --propertyName propertyValue
 USAGE
@@ -22,17 +19,6 @@ USAGE
 
 while [ "$1" != "" ]; do
     case $1 in
-    -u | --tre_url)
-        shift
-        tre_url=$1
-        ;;
-    -i| --insecure)
-        insecure=1
-        ;;
-    -a | --access-token)
-        shift
-        access_token=$1
-        ;;
     --*)
         property_names+=("${1:2}")
         shift
