@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://github.com/microsoft/AzureTRE/templates/workspace_services/guacamole/template_schema.json",
+  "type": "object",
+  "title": "noop",
+  "description": "Noop workspace service",
+  "required": [],
+  "properties": {
+  },
+  "pipeline": {
+    "install": [
+      {
+        "stepId": "main"
+      }
+    ],
+    "upgrade": [
+      {
+        "stepId": "main"
+      }
+    ],
+    "uninstall": [
+      {
+        "stepId": "main"
+      }
+    ]
+  }
+}

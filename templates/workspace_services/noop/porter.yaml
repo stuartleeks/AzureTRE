@@ -1,0 +1,53 @@
+---
+name: tre-service-noop
+version: 0.0.1
+description: "Noop workspace service"
+dockerfile: Dockerfile.tmpl
+registry: azuretre
+
+credentials:
+  - name: azure_tenant_id
+    env: ARM_TENANT_ID
+  - name: azure_subscription_id
+    env: ARM_SUBSCRIPTION_ID
+  - name: azure_client_id
+    env: ARM_CLIENT_ID
+  - name: azure_client_secret
+    env: ARM_CLIENT_SECRET
+
+parameters:
+  - name: workspace_id
+    type: string
+  - name: tre_id
+    type: string
+
+outputs:
+  - name: "Done"
+    type: string
+    applyTo:
+      - install
+
+mixins:
+  - exec
+
+install:
+  - exec:
+      description: "Install"
+      command: ./install.sh
+      outputs:
+        - name: "Done"
+          regex: .*
+
+upgrade:
+  # When/if TF will be called here, there might be an issue caused by switching from azurerm_app_service to
+  # azurerm_linux_web_app. Since this template has no important state, it would be eaiser to recreate it.
+  - exec:
+      description: "Upgrade Guacamole Service"
+      command: echo
+      arguments:
+        - "This workspace service does not implement upgrade action"
+
+uninstall:
+  - exec:
+      description: "Uninstall"
+      command: ./uninstall.sh
