@@ -39,7 +39,8 @@ async def create_state_store_status(credential) -> Tuple[StatusEnum, str]:
     except CosmosHttpResponseError:
         status = StatusEnum.not_ok
         message = strings.STATE_STORE_ENDPOINT_NOT_ACCESSIBLE
-    except:  # noqa: E722 flake8 - no bare excepts
+    except Exception as e:
+        logging.error("Failed to query cosmos db status", e, exc_info=True)
         status = StatusEnum.not_ok
         message = strings.UNSPECIFIED_ERROR
     return status, message
@@ -60,7 +61,8 @@ async def create_service_bus_status(credential) -> Tuple[StatusEnum, str]:
     except ServiceBusAuthenticationError:
         status = StatusEnum.not_ok
         message = strings.SERVICE_BUS_AUTHENTICATION_ERROR
-    except:  # noqa: E722 flake8 - no bare excepts
+    except Exception as e:
+        logging.error("Failed to query service bus status", e, exc_info=True)
         status = StatusEnum.not_ok
         message = strings.UNSPECIFIED_ERROR
     return status, message
