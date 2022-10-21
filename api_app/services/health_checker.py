@@ -1,3 +1,4 @@
+import logging
 from typing import Tuple
 from azure.core import exceptions
 from azure.cosmos.aio import CosmosClient
@@ -79,7 +80,8 @@ async def create_resource_processor_status(credential) -> Tuple[StatusEnum, str]
                 if health_status != strings.RESOURCE_PROCESSOR_HEALTHY_MESSAGE:
                     status = StatusEnum.not_ok
                     message = strings.RESOURCE_PROCESSOR_GENERAL_ERROR_MESSAGE
-    except:   # noqa: E722 flake8 - no bare excepts
+    except Exception as e:
+        logging.error("Failed to query resource processor status", e, exc_info=True)
         status = StatusEnum.not_ok
         message = strings.UNSPECIFIED_ERROR
     return status, message
