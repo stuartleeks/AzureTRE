@@ -9,6 +9,7 @@ FEATURES:
 * Automatically validate all resources have tre_id tag via TFLint [#2774](https://github.com/microsoft/AzureTRE/pull/2774)
 
 ENHANCEMENTS:
+* CLI: Add missing endpoints and minor bug fixes (#2784)
 
 BUG FIXES:
 
